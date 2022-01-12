@@ -12,7 +12,7 @@ class TodoOverviewPage extends StatelessWidget {
         title: const Text('Todo bloc'),
       ),
       body: ListView.builder(
-        itemCount: 100,
+        itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: TodoItem(
