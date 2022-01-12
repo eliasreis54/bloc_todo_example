@@ -7,18 +7,23 @@ class TodoOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 100,
-      itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: TodoItem(
-            todo: Todo(
-              name: 'Todo $index',
-              description: 'Todo description $index',
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Todo bloc'),
+      ),
+      body: ListView.builder(
+        itemCount: 100,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: TodoItem(
+              todo: Todo(
+                name: 'Todo $index',
+                description: 'Todo description $index',
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
