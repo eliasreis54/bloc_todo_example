@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_api/todo_api.dart';
 import 'package:todo_bloc/home/home.dart';
 import 'package:todo_repository/todo_repository.dart';
 
 class App extends StatelessWidget {
-  final TodoApi todoApi;
+  final TodoRepository todoRepository;
 
   const App({
     Key? key,
-    required this.todoApi,
+    required this.todoRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (_) => TodoRepository(todoApi: todoApi),
+    return RepositoryProvider.value(
+      value: todoRepository,
       child: const MaterialApp(
         home: HomePage(),
       ),
