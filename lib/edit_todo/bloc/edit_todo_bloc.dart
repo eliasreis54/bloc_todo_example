@@ -48,7 +48,8 @@ class EditTodoBloc extends Bloc<EditTodoEvent, EditTodoState> {
         ),
       );
       emit(state.copyWith(status: EditTodoStatus.success));
-    } catch (_) {
+    } catch (e, s) {
+      addError(e, s);
       emit(state.copyWith(status: EditTodoStatus.failure));
     }
   }
