@@ -21,3 +21,10 @@ class EditTodoEventDescriptionChanged extends EditTodoEvent {
   @override
   List<Object?> get props => [description];
 }
+
+class EditTodoEventSubimited extends EditTodoEvent {
+  const EditTodoEventSubimited();
+
+  @override
+  List<Object?> get props => [];
+}
