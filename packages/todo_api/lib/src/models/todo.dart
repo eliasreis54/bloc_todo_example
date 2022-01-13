@@ -2,21 +2,17 @@ import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
 class Todo extends Equatable {
-  final String? id;
+  final String id;
   final String name;
   final String description;
   final bool isConcluded;
 
   Todo({
-    String? id,
+    String id = '',
     required this.name,
     this.description = '',
     this.isConcluded = false,
-  })  : assert(
-          id == null || id.isNotEmpty,
-          'id can not be null',
-        ),
-        id = id ?? const Uuid().v4();
+  }) : id = id.isEmpty ? const Uuid().v4() : id;
 
   @override
   List<Object?> get props => [id, name, description, isConcluded];
