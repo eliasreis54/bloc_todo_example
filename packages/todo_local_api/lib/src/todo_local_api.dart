@@ -32,11 +32,9 @@ class TodoLocalApi extends TodoApi {
     final todos = _getValue();
     if (todos != null) {
       final data = jsonDecode(todos) as List;
-      final list = List<Map>.from(data);
 
-      return list.map((e) {
-        final asJson = Map<String, dynamic>.from(e);
-        final todo = Todo.fromJson(asJson);
+      return List<Map>.from(data).map((e) {
+        final todo = Todo.fromJson(Map<String, dynamic>.from(e));
         _todos.add(todo);
         return todo;
       }).toList();
