@@ -31,7 +31,7 @@ void main() {
   });
 
   test('Should call todoApi when get todos', () {
-    when(() => todoApi.getTodos()).thenAnswer((_) async => []);
+    when(() => todoApi.getTodos()).thenAnswer((_) => Stream.value([]));
 
     repository.getTodos();
 
