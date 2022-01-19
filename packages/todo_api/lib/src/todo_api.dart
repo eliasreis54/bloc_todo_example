@@ -5,5 +5,5 @@ abstract class TodoApi {
 
   Future<void> saveTodo(Todo todo);
 
-  Future<List<Todo>> getTodos();
+  Stream<List<Todo>> getTodos();
 }

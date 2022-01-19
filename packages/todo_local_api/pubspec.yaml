@@ -20,6 +20,8 @@ dependencies:
   todo_api:
     path: ../todo_api
 
+  rxdart: ^0.27.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -10,11 +10,9 @@ class MockSharedPrefs extends Mock implements SharedPreferences {}
 
 void main() {
   late SharedPreferences sharedPref;
-  late TodoLocalApi todoLocalApi;
 
   setUp(() {
     sharedPref = MockSharedPrefs();
-    todoLocalApi = TodoLocalApi(sharedPreferences: sharedPref);
   });
 
   final todos = [
@@ -35,31 +33,29 @@ void main() {
   group('getTodos', () {
     test('Should return a list of todos when storage is not empty', () async {
       when(() => sharedPref.getString(any())).thenReturn(jsonEncode(todos));
+      final todoLocalApi = TodoLocalApi(sharedPreferences: sharedPref);
 
-      final retrievedTodos = await todoLocalApi.getTodos();
+      final retrievedTodos = todoLocalApi.getTodos();
 
-      expect(retrievedTodos, isA<List<Todo>>());
-      expect(retrievedTodos.length, 2);
-      expect(retrievedTodos, todos);
-      expect(todoLocalApi.todos, todos);
+      expect(retrievedTodos, emits(todos));
     });
 
-    test('Should return a empty list of todos when storage is empty', () async {
+    test('Should return a empty list of todos when storage is empty', () {
       when(() => sharedPref.getString(any())).thenReturn(jsonEncode([]));
+      final todoLocalApi = TodoLocalApi(sharedPreferences: sharedPref);
 
-      final retrievedTodos = await todoLocalApi.getTodos();
+      final retrievedTodos = todoLocalApi.getTodos();
 
-      expect(retrievedTodos, isA<List<Todo>>());
-      expect(retrievedTodos.length, 0);
+      expect(retrievedTodos, emits([]));
     });
 
-    test('Should return a empty list of todos when storage is empty', () async {
+    test('Should return a empty list of todos when storage is empty', () {
       when(() => sharedPref.getString(any())).thenReturn(null);
+      final todoLocalApi = TodoLocalApi(sharedPreferences: sharedPref);
 
-      final retrievedTodos = await todoLocalApi.getTodos();
+      final retrievedTodos = todoLocalApi.getTodos();
 
-      expect(retrievedTodos, isA<List<Todo>>());
-      expect(retrievedTodos.length, 0);
+      expect(retrievedTodos, emits([]));
     });
   });
 
@@ -71,11 +67,11 @@ void main() {
 
       final api = TodoLocalApi(sharedPreferences: sharedPref);
 
-      expect(api.todos, todos);
+      expect(api.getTodos(), emits(todos));
 
       api.saveTodo(todos[0]);
 
-      expect(api.todos.length, 3);
+      expect(api.getTodos(), emits([...todos, todos[0]]));
 
       final data =
           jsonEncode([...todos.map((e) => e.toJson()), todos[0].toJson()]);

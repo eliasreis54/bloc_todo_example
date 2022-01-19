@@ -10,8 +10,7 @@ class TodoRepository {
     await todoApi.saveTodo(todo);
   }
 
-  Future<List<Todo>> getTodos() async {
-    final todos = await todoApi.getTodos();
-    return todos;
+  Stream<List<Todo>> getTodos() {
+    return todoApi.getTodos();
   }
 }
